@@ -1,7 +1,7 @@
 import Filters from "../page_objects/filters";
 import AddClient from "../page_objects/add_client";
 const email = "admin@jarvisempg.com";
-const password = "MASTER";
+const password = "d672bcb35e2f";
 
 const cname= "usama test"
 const desig = "Marketing Manager"
