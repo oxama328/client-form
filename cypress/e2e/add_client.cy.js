@@ -10,9 +10,9 @@ const clfc = "Moderate"
 const area = "Abu Dhabi"
 const subarea = "Abu Dhabi Formula 1"
 const cmail = "john.doe@example.com"
-const category = "Dealership"
+const category = "Manual"
 const address = "123 Main St, Dubai"
-const source = "Import"
+const source = "Manual"
 const pin = "25.2048, 55.2708"
 const salesChannel = "Online"
 const branches = "1-5"
@@ -49,11 +49,10 @@ describe("Create a client", () => {
     client.email(cmail)
     client.designation(desig)
     client.business(bname)
-    client.clientCategory(category)
+    client.source(source)
     client.clientType(ctype)
     client.classification(clfc)
     client.address(address)
-    client.source(source)
     client.location(area, subarea)
     client.pinLocation(pin)
     client.salesChannel(salesChannel)

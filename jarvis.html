@@ -1,4 +1,3 @@
-//updated
 class AddClient {
   addClient(val) {
     cy.visit(
@@ -93,25 +92,33 @@ class AddClient {
   email(val) {
     cy.get('input[placeholder="Enter email"]').type(val);
   }
-
-  source() {
-    // Open the Source dropdown
-    cy.get('#rc_select_4').scrollIntoView().click({ force: true });
-    cy.wait(500); // Wait for dropdown animation
-    // Select the first available .infinite-row-scoped option
-    cy.get('.ant-select-dropdown:visible .infinite-row-scoped', { timeout: 10000 })
-      .first()
-      .should('be.visible')
-      .click({ force: true });
+  clientCategory(val) {
+    cy.get('#rc_select_4').click({ force: true }).type(val, { force: true }).type('{enter}', { force: true });
   }
-  
-
   address(val) {
     cy.get('input[placeholder="Enter Address"]').type(val);
   }
 
-
+  source(val) {
+    // Open the Source dropdown
+    cy.contains('div', /^Source$/i, { timeout: 10000 })
+      .closest('.faq-form')
+      .find('.ant-select')
+      .should('be.visible')
+      .click({ force: true });
   
+    // Pick the desired option
+    cy.get('.ant-select-dropdown:visible', { timeout: 10000 })
+      .contains('.ant-select-item-option-content', new RegExp(`^${val}$`, 'i'))
+      .scrollIntoView()
+      .click({ force: true });
+  
+    // Verify the value is selected
+    cy.contains('div', /^Source$/i)
+      .closest('.faq-form')
+      .find('.ant-select .ant-select-selector')
+      .should('contain.text', val);
+  }
   
   
   
