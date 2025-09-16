@@ -2,14 +2,15 @@ import AddClient from "../page_objects/add_client";
 const email = "admin@jarvisempg.com";
 const password = "d672bcb35e2f";
 
-const cname= "usama test"
+const phone = getPhone()
+const cname= getCustomerName()
+const bname = getBusinessName()
+const cmail = getCustomerEmail()
 const desig = "Marketing Manager"
-const bname = "osama business"
 const ctype = 'Dealership - Sales Agent'
 const clfc = "Moderate"
 const area = "Abu Dhabi"
 const subarea = "Abu Dhabi Formula 1"
-const cmail = "john.doe@example.com"
 const category = "Manual"
 const address = "123 Main St, Dubai"
 const source = "Manual"
@@ -29,22 +30,30 @@ const insurancePartners = "InsureOne, CoverAll"
 const cfd = "123"
 const evalId = "E-456"
 
-  beforeEach(() => {
-    cy.login(email, password);
-  });
+function getPhone() {
+  return `555${Math.floor(100000 + Math.random() * 900000)}`;
+}
 
-//   it("Client Filters", () => {
-//     const fl = new Filters();
-//     fl.refFilter(5)
-//   });
-// });
+function getCustomerName() {
+  return `user_${Date.now()}`;
+}
+
+function getBusinessName() {
+  return `business_${Date.now()}`;
+}
+
+function getCustomerEmail() {
+  return `user_${Date.now()}@example.com`;
+}
+
+beforeEach(() => {
+  cy.login(email, password);
+});
 
 describe("Create a client", () => {
-
-
   it("with mandatory fields", () => {
     const client = new AddClient()
-    client.addClient(555677654)
+    client.addClient(phone)
     client.addName(cname)
     client.email(cmail)
     client.designation(desig)

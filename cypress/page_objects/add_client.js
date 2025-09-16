@@ -4,7 +4,7 @@ class AddClient {
     cy.visit(
       "https://prelivev2-vas-uae-affiliates.jarvisempg.com/admin/crm/clients/new"
     );
-    cy.wait(1000); 
+    cy.wait(1000);
     cy.get('input[placeholder="50 123 XXXX"]')
       .type(val)
       .type("Cypress{enter}");
@@ -23,11 +23,11 @@ class AddClient {
     cy.get("#clientType").click();
     cy.contains("div", val).click();
   }
-  classification(val){
+  classification(val) {
     cy.get("#clientClassification").click();
     cy.contains("div", val).click()
   }
-  location(city, area){
+  location(city, area) {
     // Open the location picker (click the input inside the container)
     cy.get('#clientLocation')
       .scrollIntoView()
@@ -41,42 +41,42 @@ class AddClient {
         ? '.modal.fade.show'
         : ($b.find('[role="dialog"]:visible').length ? '[role="dialog"]:visible' : '.modal:visible');
       cy.get(modalRoot, { timeout: 10000 }).should('be.visible').within(() => {
-      // Cities column: scope by header text to avoid index fragility
-      cy.contains('h6', /^Cities$/i)
-        .closest('.modal-inner-wrapper')
-        .within(() => {
-          cy.get('.filter__row--section input.ant-input')
-            .first()
-            .clear({ force: true })
-            .type(city, { force: true });
-
-          // Click the whole row that contains the span text
-          cy.contains('.modal-list span', new RegExp(`^${city}$`, 'i'), { timeout: 10000 })
-            .parents('.modal-list')
-            .first()
-            .scrollIntoView()
-            .click({ force: true });
-        });
-
-      // Areas column: appears after city selection
-      if (area) {
-        cy.contains('h6', /^Areas$/i)
+        // Cities column: scope by header text to avoid index fragility
+        cy.contains('h6', /^Cities$/i)
           .closest('.modal-inner-wrapper')
           .within(() => {
             cy.get('.filter__row--section input.ant-input')
               .first()
               .clear({ force: true })
-              .type(area, { force: true });
+              .type(city, { force: true });
 
-            cy.contains('.modal-list span', new RegExp(`^${area}$`, 'i'), { timeout: 10000 })
+            // Click the whole row that contains the span text
+            cy.contains('.modal-list span', new RegExp(`^${city}$`, 'i'), { timeout: 10000 })
               .parents('.modal-list')
               .first()
               .scrollIntoView()
               .click({ force: true });
           });
-      }
 
-      // Only two levels: city and area. No sub-area selection needed.
+        // Areas column: appears after city selection
+        if (area) {
+          cy.contains('h6', /^Areas$/i)
+            .closest('.modal-inner-wrapper')
+            .within(() => {
+              cy.get('.filter__row--section input.ant-input')
+                .first()
+                .clear({ force: true })
+                .type(area, { force: true });
+
+              cy.contains('.modal-list span', new RegExp(`^${area}$`, 'i'), { timeout: 10000 })
+                .parents('.modal-list')
+                .first()
+                .scrollIntoView()
+                .click({ force: true });
+            });
+        }
+
+        // Only two levels: city and area. No sub-area selection needed.
 
         // Find the Done button by text and click it
         cy.contains('button', 'Done', { matchCase: false, timeout: 10000 })
@@ -104,17 +104,9 @@ class AddClient {
       .should('be.visible')
       .click({ force: true });
   }
-  
-
   address(val) {
     cy.get('input[placeholder="Enter Address"]').type(val);
   }
-
-
-  
-  
-  
-  
   pinLocation(val) {
     cy.get('input[placeholder="Select Pin Location (Latitude, Longitude)"]')
       .scrollIntoView()
